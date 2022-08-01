@@ -1,18 +1,17 @@
 {
-    "typescript.tsdk": "./node_modules/typescript/lib",
-    "editor.formatOnSave": true,
-    "editor.codeActionsOnSave": {
-      "source.fixAll.eslint": true
-    },
-    "eslint.packageManager": "pnpm",
-    "workbench.colorCustomizations": {
-      "activityBar.activeBackground": "#f2f2f2",
-      "activityBar.activeBorder": "#a97ce3",
-      "activityBar.background": "#f9f9f9",
-      "activityBar.foreground": "#15202b",
-      "activityBarBadge.background": "#a97ce3",
-      "sash.hoverBorder": "#baeca6",
-    },
-    "peacock.color": "#7ce3aa",
-  }
-  
+  "typescript.tsdk": "./node_modules/typescript/lib",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.packageManager": "pnpm",
+  "workbench.colorCustomizations": {
+    "activityBar.activeBackground": "#baeca6",
+    "activityBar.activeBorder": "#a97ce3",
+    "activityBar.background": "#456c36",
+    "activityBar.foreground": "#15202b",
+    "activityBarBadge.background": "#a97ce3",
+    "sash.hoverBorder": "#baeca6",
+  },
+  "peacock.color": "#7ce3aa",
+}
