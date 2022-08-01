@@ -1,25 +1,41 @@
-import create, { StateCreator } from "zustand";
+import create from 'zustand';
 import { devtools } from 'zustand/middleware';
+import { persist } from 'zustand/middleware';
 
-
-// Dalam Typescript harus mendeklarasikan tipe data
 export type TodoItem = {
-    id: number;
-    title : string;
-    done: boolean;
+  id: number;
+  title: string;
+  done: boolean;
 };
 
 export interface State {
   items: TodoItem[];
-  hideCompleted: boolean;
   addItem(item: TodoItem): void;
-  toggleHideCompleted(): void;
   toggleItem(item: TodoItem): void;
   removeItem(item: TodoItem): void;
   removeCompleted(): void;
 }
 
-// export const createTodoList: StateCreator<State, [["zustand/devtools", never]], []> = (set) => ({
-//   id : 0,
-
-// })
+export const useStore = create<State>(
+  persist(
+    devtools(
+      (set) => ({
+        items: [],
+    
+        addItem: (item: TodoItem) => set((state) => ({ items: [...state.items, item] }), false, 'ADD_ITEM'),
+        removeItem: (item: TodoItem) => set((state) => ({ items: state.items.filter((it) => it.id !== item.id) }), false, 'REMOVE_ITEM'),
+        toggleItem: (item: TodoItem) =>
+          set(
+            (state) => ({
+              items: state.items.map((it) => ({ ...it, done: it.id === item.id ? !item.done : it.done }))
+            }),
+            false,
+            'TOGGLE_ITEM'
+          ),
+        removeCompleted: () => set((state) => ({ items: state.items.filter((it) => !it.done) }), false, 'REMOVE_COMPLETED')
+      }),
+      'TodoStore'
+    ),
+    { name: 'todolist' }
+  )
+);
