@@ -12,6 +12,11 @@ const TodoList = () => {
     setNewItem('')
   }
 
+  // function canEditTodo(e: FormEvent<HTMLFormElement>) {
+  //   e.preventDefault()
+  //   editItem()
+  // }
+
   return (
     <form onSubmit={addTodoItem}>
       <div className="w-full flex items-center justify-center">
