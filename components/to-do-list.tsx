@@ -51,16 +51,18 @@ const List = () => {
         <div className="flex mb-4 items-center">
           <li className={item.done ? styles.item_done : ''}>
             <input
+              className="mr-2 text-xl"
               type="checkbox"
               name=""
               id=""
               checked={item.done}
               onChange={() => toggleItem(item)}
             />
-            {item.title}{' '}
+            <label className="text-lg">{item.title} </label>
             <button
-              className="flex-no-shrink p-2 ml-2 border-2 rounded text-red border-red hover:text-white hover:bg-red"
+              className="flex-no-shrink p-1  ml-2 border-2 rounded text-red border-red hover:text-white hover:bg-red border-red-600 hover:bg-red-600 disabled:bg-slate-400 disabled:text-white disabled:border-slate-400 disabled:opacity-75"
               onClick={() => removeItem(item)}
+              disabled={!item.done}
             >
               Remove
             </button>
