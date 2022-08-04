@@ -8,7 +8,12 @@ const TodoList = () => {
 
   function addTodoItem(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    addItem({ id: Date.now(), title: newItem, done: false })
+    addItem({
+      id: Date.now(),
+      title: newItem,
+      done: false,
+      edit: '',
+    })
     setNewItem('')
   }
 
