@@ -17,11 +17,9 @@ export interface State {
 }
 
 export const useStore = create<State>(
-  persist(
     devtools(
       (set) => ({
         items: [],
-    
         addItem: (item: TodoItem) => set((state) => ({ items: [...state.items, item] }), false, 'ADD_ITEM'),
         removeItem: (item: TodoItem) => set((state) => ({ items: state.items.filter((it) => it.id !== item.id) }), false, 'REMOVE_ITEM'),
         toggleItem: (item: TodoItem) =>
@@ -36,6 +34,4 @@ export const useStore = create<State>(
       }),
       'TodoStore'
     ),
-    { name: 'todolist' }
-  )
 );
