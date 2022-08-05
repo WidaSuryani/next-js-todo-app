@@ -1,6 +1,5 @@
 import create from 'zustand';
 import { devtools } from 'zustand/middleware';
-import { persist } from 'zustand/middleware';
 
 export type TodoItem = {
   id: number;

@@ -1,5 +1,5 @@
 import React, { FormEvent, useState } from 'react'
-import { TodoItem, useStore } from '../pages/api/store/store'
+import { useStore } from '../pages/api/store/store'
 import styles from '../styles/Home.module.css'
 
 const TodoList = () => {
@@ -8,7 +8,11 @@ const TodoList = () => {
 
   function addTodoItem(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    addItem({ id: Date.now(), title: newItem, done: false })
+    addItem({
+      id: Date.now(),
+      title: newItem,
+      done: false,
+    })
     setNewItem('')
   }
 
@@ -58,9 +62,11 @@ const List = () => {
               checked={item.done}
               onChange={() => toggleItem(item)}
             />
-            <label className="text-lg">{item.title} </label>
+            <label className="text-lg" contentEditable="true">
+              {item.title}{' '}
+            </label>
             <button
-              className="flex-no-shrink p-1  ml-2 border-2 rounded text-red border-red hover:text-white hover:bg-red border-red-600 hover:bg-red-600 disabled:bg-slate-400 disabled:text-white disabled:border-slate-400 disabled:opacity-75"
+              className="flex-no-shrink p-1  ml-2 border-2 rounded text-red border-red hover:text-white hover:bg-red border-red-600 hover:bg-red-600"
               onClick={() => removeItem(item)}
               disabled={!item.done}
             >
