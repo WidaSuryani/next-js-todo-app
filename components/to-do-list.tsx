@@ -1,23 +1,40 @@
 import React, { FormEvent, useState } from 'react'
 import { useStore } from '../pages/api/store/store'
 import styles from '../styles/Home.module.css'
+import { useForm } from 'react-hook-form'
 
 const TodoList = () => {
   const [newItem, setNewItem] = useState('')
   const { addItem } = useStore()
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      example: '',
+      exampleRequired: '',
+    },
+  })
 
-  function addTodoItem(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault()
+  const addTodo = () => {
+    // e.preventDefault()
     addItem({
       id: Date.now(),
       title: newItem,
       done: false,
+      // dateCreate: Date.getDate(),
     })
     setNewItem('')
   }
 
+  console.log(Date.now)
+
+  // console.log(watch('exampleRequired'))
+
   return (
-    <form onSubmit={addTodoItem}>
+    <form onSubmit={handleSubmit(addTodo)}>
       <div className="w-full flex items-center justify-center">
         <div className="bg-slate-50 rounded-xl shadow p-6 m-4 w-full lg:w-3/4 lg:max-w-lg">
           <div className="mb-4">
@@ -30,7 +47,12 @@ const TodoList = () => {
                 id="new-todo"
                 value={newItem}
                 onInput={e => setNewItem(e.currentTarget.value)}
+                {...register('exampleRequired', {
+                  required: true,
+                  maxLength: 10,
+                })}
               />
+              {errors.exampleRequired && <p>This field is required</p>}
               <button
                 className="flex-no-shrink p-2 border-2 rounded border-cyan-400 hover:bg-cyan-400 hover:text-white"
                 type="submit"
@@ -38,7 +60,7 @@ const TodoList = () => {
                 Add
               </button>
             </div>
-            <List></List>
+            <List key="item"></List>
           </div>
         </div>
       </div>
@@ -65,6 +87,7 @@ const List = () => {
             <label className="text-lg" contentEditable="true">
               {item.title}{' '}
             </label>
+            {/* <label>{item.dateCreate}</label> */}
             <button
               className="flex-no-shrink p-1  ml-2 border-2 rounded text-red border-red hover:text-white hover:bg-red border-red-600 hover:bg-red-600"
               onClick={() => removeItem(item)}
