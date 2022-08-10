@@ -52,7 +52,6 @@ const TodoList = () => {
                   maxLength: 10,
                 })}
               />
-              {errors.exampleRequired && <p>This field is required</p>}
               <button
                 className="flex-no-shrink p-2 border-2 rounded border-cyan-400 hover:bg-cyan-400 hover:text-white"
                 type="submit"
@@ -60,6 +59,11 @@ const TodoList = () => {
                 Add
               </button>
             </div>
+            {errors.exampleRequired && (
+              <p className="mb-5 font-bold text-red-500">
+                This field is required!!
+              </p>
+            )}
             <List key="item"></List>
           </div>
         </div>
