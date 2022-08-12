@@ -5,6 +5,7 @@ export type TodoItem = {
   id: number;
   title: string;
   done: boolean;
+  createDate: Date;
 };
 
 export interface State {
@@ -29,7 +30,7 @@ export const useStore = create<State>(
             false,
             'TOGGLE_ITEM'
           ),
-        removeCompleted: () => set((state) => ({ items: state.items.filter((it) => !it.done) }), false, 'REMOVE_COMPLETED')
+        removeCompleted: () => set((state) => ({ items: state.items.filter((it) => !it.done) }), false, 'REMOVE_COMPLETED'),
       }),
       'TodoStore'
     ),
