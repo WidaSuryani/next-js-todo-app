@@ -5,33 +5,26 @@ import { useForm } from 'react-hook-form'
 
 const TodoList = () => {
   const [newItem, setNewItem] = useState('')
-  const { addItem } = useStore()
+  const addItem = useStore(state => state.addItem)
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm({
     defaultValues: {
-      example: '',
-      exampleRequired: '',
+      itemsRequired: '',
     },
   })
 
   const addTodo = () => {
-    // e.preventDefault()
     addItem({
       id: Date.now(),
       title: newItem,
       done: false,
-      // dateCreate: Date.getDate(),
+      createDate: new Date(),
     })
     setNewItem('')
   }
-
-  console.log(Date.now)
-
-  // console.log(watch('exampleRequired'))
 
   return (
     <form onSubmit={handleSubmit(addTodo)}>
@@ -47,7 +40,7 @@ const TodoList = () => {
                 id="new-todo"
                 value={newItem}
                 onInput={e => setNewItem(e.currentTarget.value)}
-                {...register('exampleRequired', {
+                {...register('itemsRequired', {
                   required: true,
                   maxLength: 10,
                 })}
@@ -59,7 +52,7 @@ const TodoList = () => {
                 Add
               </button>
             </div>
-            {errors.exampleRequired && (
+            {errors.itemsRequired && (
               <p className="mb-5 font-bold text-red-500">
                 This field is required!!
               </p>
@@ -73,7 +66,9 @@ const TodoList = () => {
 }
 
 const List = () => {
-  const { items, removeItem, toggleItem } = useStore()
+  const items = useStore(state => state.items)
+  const removeItem = useStore(state => state.removeItem)
+  const toggleItem = useStore(state => state.toggleItem)
 
   return (
     <div>
@@ -91,7 +86,12 @@ const List = () => {
             <label className="text-lg" contentEditable="true">
               {item.title}{' '}
             </label>
-            {/* <label>{item.dateCreate}</label> */}
+            <label className="text-lg ml-2">
+              {item.createDate.toLocaleTimeString()}
+            </label>
+            <label className="text-lg ml-2">
+              {item.createDate.toLocaleDateString()}
+            </label>
             <button
               className="flex-no-shrink p-1  ml-2 border-2 rounded text-red border-red hover:text-white hover:bg-red border-red-600 hover:bg-red-600"
               onClick={() => removeItem(item)}
